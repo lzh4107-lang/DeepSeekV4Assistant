@@ -12,3 +12,7 @@ Douyin search, app branding, D-drive data routing, tests, and packaging changes.
 
 DeepSeek and Douyin are trademarks of their respective owners. This project is
 an independent API client and is not endorsed by either company.
+
+The Windows installer includes the official Inno Setup Simplified Chinese
+translation maintained by Zhenghan Yang, sourced from
+https://github.com/jrsoftware/issrc/blob/main/Files/Languages/ChineseSimplified.isl.

@@ -2,6 +2,16 @@ name: Build Windows and Android
 
 on:
   workflow_dispatch:
+    inputs:
+      target:
+        description: Platform to build after quality checks
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - windows
+          - android
 
 permissions:
   contents: read
@@ -66,6 +76,7 @@ jobs:
   android:
     name: Build Android APK
     needs: quality
+    if: ${{ inputs.target == 'all' || inputs.target == 'android' }}
     runs-on: ubuntu-latest
     env:
       KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
@@ -171,6 +182,7 @@ jobs:
   windows:
     name: Build Windows installer
     needs: quality
+    if: ${{ inputs.target == 'all' || inputs.target == 'windows' }}
     runs-on: windows-2022
     steps:
       - name: Checkout
@@ -212,8 +224,16 @@ jobs:
           Compress-Archive `
             -Path 'build/windows/x64/runner/Release/*' `
             -DestinationPath "dist/DeepSeekV4Assistant-$env:APP_VERSION-Windows-Portable.zip"
+          $distPath = (Resolve-Path 'dist').Path
           & 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe' `
-            "/DAppVersion=$env:APP_VERSION" 'installer/windows.iss'
+            "/DAppVersion=$env:APP_VERSION" "/O$distPath" 'installer/windows.iss'
+          if ($LASTEXITCODE -ne 0) {
+            throw "Inno Setup failed with exit code $LASTEXITCODE"
+          }
+          $setupFiles = @(Get-ChildItem dist -File -Filter '*-Windows-Setup.exe')
+          if ($setupFiles.Count -ne 1) {
+            throw "Expected exactly one Windows setup executable, found $($setupFiles.Count)"
+          }
           git archive --format=zip `
             --output="dist/DeepSeekV4Assistant-$env:APP_VERSION-Source.zip" HEAD
           Copy-Item LICENSE,NOTICE.md -Destination dist

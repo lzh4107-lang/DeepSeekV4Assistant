@@ -3,8 +3,12 @@ name: Publish Release
 on:
   workflow_dispatch:
     inputs:
-      run_id:
-        description: Successful build workflow run ID
+      android_run_id:
+        description: Successful Android build workflow run ID
+        required: true
+        type: string
+      windows_run_id:
+        description: Successful Windows build workflow run ID
         required: true
         type: string
       tag:
@@ -27,7 +31,7 @@ jobs:
         with:
           name: Android-APK
           path: artifacts/android
-          run-id: ${{ inputs.run_id }}
+          run-id: ${{ inputs.android_run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Download Windows packages
@@ -35,7 +39,7 @@ jobs:
         with:
           name: Windows-Packages
           path: artifacts/windows
-          run-id: ${{ inputs.run_id }}
+          run-id: ${{ inputs.windows_run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Prepare release files
@@ -64,7 +68,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_TAG: ${{ inputs.tag }}
-          BUILD_RUN_ID: ${{ inputs.run_id }}
+          BUILD_RUN_ID: ${{ inputs.windows_run_id }}
         run: |
           set -euo pipefail
           BUILD_SHA="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${BUILD_RUN_ID}" --jq .head_sha)"
