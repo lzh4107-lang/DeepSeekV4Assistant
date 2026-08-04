@@ -14,7 +14,7 @@ on:
       tag:
         description: Release tag
         required: true
-        default: v0.1.0
+        default: v0.1.1
         type: string
 
 permissions:
@@ -75,9 +75,10 @@ jobs:
           if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
             gh release upload "$RELEASE_TAG" release/* --clobber --repo "$GITHUB_REPOSITORY"
           else
+            RELEASE_VERSION="${RELEASE_TAG#v}"
             gh release create "$RELEASE_TAG" release/* \
               --repo "$GITHUB_REPOSITORY" \
               --target "$BUILD_SHA" \
-              --title "DeepSeek V4 Assistant 0.1.0" \
-              --notes "Windows and Android release with DeepSeek V4 chat, file upload, web search, and Windows Douyin search. Built from a workflow that passed static analysis, the full Flutter test suite, APK signature verification, and both release builds."
+              --title "DeepSeek V4 Assistant ${RELEASE_VERSION}" \
+              --notes "Windows and Android release with DeepSeek V4 chat, file upload, web search, Windows Douyin search, and explicit D-drive application storage. Built from a workflow that passed static analysis, the full Flutter test suite, APK signature verification, and both release builds."
           fi
