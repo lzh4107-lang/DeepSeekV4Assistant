@@ -1,0 +1,71 @@
+name: Publish Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Successful build workflow run ID
+        required: true
+        type: string
+      tag:
+        description: Release tag
+        required: true
+        default: v0.1.0
+        type: string
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  publish:
+    name: Publish verified packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Android package
+        uses: actions/download-artifact@v4
+        with:
+          name: Android-APK
+          path: artifacts/android
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download Windows packages
+        uses: actions/download-artifact@v4
+        with:
+          name: Windows-Packages
+          path: artifacts/windows
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Prepare release files
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release
+          cp artifacts/android/DeepSeekV4Assistant-*-Android.apk release/
+          cp artifacts/windows/DeepSeekV4Assistant-*-Windows-Setup.exe release/
+          cp artifacts/windows/DeepSeekV4Assistant-*-Windows-Portable.zip release/
+          cp artifacts/windows/DeepSeekV4Assistant-*-Source.zip release/
+          cp artifacts/windows/LICENSE artifacts/windows/NOTICE.md release/
+          cd release
+          sha256sum *.apk *.exe *.zip > SHA256SUMS.txt
+
+      - name: Publish GitHub release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ inputs.tag }}
+          BUILD_RUN_ID: ${{ inputs.run_id }}
+        run: |
+          set -euo pipefail
+          BUILD_SHA="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${BUILD_RUN_ID}" --jq .head_sha)"
+          if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" release/* --clobber --repo "$GITHUB_REPOSITORY"
+          else
+            gh release create "$RELEASE_TAG" release/* \
+              --repo "$GITHUB_REPOSITORY" \
+              --target "$BUILD_SHA" \
+              --title "DeepSeek V4 Assistant 0.1.0" \
+              --notes "Windows and Android release with DeepSeek V4 chat, file upload, web search, and Windows Douyin search. Built from a workflow that passed static analysis, the full Flutter test suite, APK signature verification, and both release builds."
+          fi
