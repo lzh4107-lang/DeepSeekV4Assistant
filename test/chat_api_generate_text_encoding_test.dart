@@ -210,7 +210,7 @@ void main() {
         );
 
         expect(enabledBody['thinking'], {'type': 'enabled'});
-        expect(enabledBody['reasoning_effort'], 'xhigh');
+        expect(enabledBody['reasoning_effort'], 'max');
         expect(disabledBody['thinking'], {'type': 'disabled'});
         expect(disabledBody.containsKey('reasoning_effort'), isFalse);
       },
