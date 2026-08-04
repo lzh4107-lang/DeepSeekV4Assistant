@@ -113,7 +113,10 @@ class WindowsStorageConfig {
     Directory source,
     Directory destination,
   ) async {
-    await for (final entity in source.list(recursive: true, followLinks: false)) {
+    await for (final entity in source.list(
+      recursive: true,
+      followLinks: false,
+    )) {
       final relative = p.windows.relative(entity.path, from: source.path);
       final targetPath = p.windows.join(destination.path, relative);
       if (entity is Directory) {
@@ -151,11 +154,8 @@ class DDrivePathProviderWindows extends PathProviderWindows {
       _ensureDirectory('Roaming', WindowsStorageConfig.appDirectoryName);
 
   @override
-  Future<String?> getApplicationCachePath() => _ensureDirectory(
-    'Local',
-    WindowsStorageConfig.appDirectoryName,
-    'Cache',
-  );
+  Future<String?> getApplicationCachePath() =>
+      _ensureDirectory('Local', WindowsStorageConfig.appDirectoryName, 'Cache');
 
   @override
   Future<String?> getTemporaryPath() => _ensureDirectory('Temp');
