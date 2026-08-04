@@ -8,10 +8,7 @@ void main() {
 
       expect(config.enabled, isTrue);
       expect(config.baseUrl, 'https://api.deepseek.com/v1');
-      expect(
-        config.models,
-        const ['deepseek-v4-flash', 'deepseek-v4-pro'],
-      );
+      expect(config.models, const ['deepseek-v4-flash', 'deepseek-v4-pro']);
     });
 
     test('marks both V4 models as reasoning and tool capable', () {

@@ -139,7 +139,7 @@ class _DeepSeekApiKeyDialogState extends State<_DeepSeekApiKeyDialog> {
               label: Text(l10n.deepSeekSetupOpenKeyPage),
               style: TextButton.styleFrom(
                 alignment: Alignment.centerLeft,
-                textStyle: const TextStyle(
+                textStyle: TextStyle(
                   fontWeight: AppFontWeights.semibold,
                 ),
               ),

@@ -25,7 +25,8 @@ class DesktopHomePage extends StatefulWidget {
     this.initialProviderKey,
   });
 
-  final int? initialTabIndex; // 0=Chat,1=Translate,2=Storage,3=Settings,4=Douyin
+  final int?
+  initialTabIndex; // 0=Chat,1=Translate,2=Storage,3=Settings,4=Douyin
   final String? initialProviderKey;
 
   @override

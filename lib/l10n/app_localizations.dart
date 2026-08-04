@@ -6983,7 +6983,7 @@ abstract class AppLocalizations {
   /// No description provided for @aboutPageAppName.
   ///
   /// In en, this message translates to:
-  /// **'Kelivo'**
+  /// **'DeepSeek V4 Assistant'**
   String get aboutPageAppName;
 
   /// No description provided for @aboutPageAppDescription.
@@ -8249,7 +8249,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsShare.
   ///
   /// In en, this message translates to:
-  /// **'Kelivo - Open Source AI Assistant'**
+  /// **'DeepSeek V4 Assistant - Open Source AI Client'**
   String get settingsShare;
 
   /// No description provided for @searchProviderBingLocalDescription.
@@ -10189,6 +10189,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{role} message #{index}: quick random debug sample for testing list rendering, scrolling stability, message grouping, and conversation history performance.'**
   String debugPageManyMessagesSeedText(String role, int index);
+
+  /// No description provided for @douyinSearchTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Douyin Search'**
+  String get douyinSearchTitle;
+
+  /// No description provided for @douyinWindowsOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Douyin search is currently available only in the Windows desktop app.'**
+  String get douyinWindowsOnly;
+
+  /// No description provided for @douyinWebViewInitFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'WebView2 initialization failed: {error}'**
+  String douyinWebViewInitFailed(String error);
+
+  /// No description provided for @douyinSearchEmptyWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter something to search for'**
+  String get douyinSearchEmptyWarning;
+
+  /// No description provided for @douyinLinkCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Link copied'**
+  String get douyinLinkCopied;
+
+  /// No description provided for @douyinBackTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get douyinBackTooltip;
+
+  /// No description provided for @douyinForwardTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Forward'**
+  String get douyinForwardTooltip;
+
+  /// No description provided for @douyinRefreshTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get douyinRefreshTooltip;
+
+  /// No description provided for @douyinCopyLinkTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy current link'**
+  String get douyinCopyLinkTooltip;
+
+  /// No description provided for @douyinOpenBrowserTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Open in browser'**
+  String get douyinOpenBrowserTooltip;
+
+  /// No description provided for @douyinAddToChat.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to chat'**
+  String get douyinAddToChat;
+
+  /// No description provided for @douyinSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Douyin videos, creators, or topics'**
+  String get douyinSearchHint;
+
+  /// No description provided for @douyinSearchTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get douyinSearchTooltip;
+
+  /// No description provided for @douyinRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get douyinRetry;
+
+  /// No description provided for @douyinConversationIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue this conversation using the current Douyin search result.'**
+  String get douyinConversationIntro;
+
+  /// No description provided for @douyinConversationQueryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Search query:'**
+  String get douyinConversationQueryLabel;
+
+  /// No description provided for @douyinConversationCurrentPageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Current page:'**
+  String get douyinConversationCurrentPageLabel;
+
+  /// No description provided for @douyinConversationLinkLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Link:'**
+  String get douyinConversationLinkLabel;
+
+  /// No description provided for @deepSeekSetupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect DeepSeek V4'**
+  String get deepSeekSetupTitle;
+
+  /// No description provided for @deepSeekSetupDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an API key to start chatting. V4 Flash is selected for speed by default, and you can switch to V4 Pro at any time.'**
+  String get deepSeekSetupDescription;
+
+  /// No description provided for @deepSeekSetupInvalidKey.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid DeepSeek API key'**
+  String get deepSeekSetupInvalidKey;
+
+  /// No description provided for @deepSeekSetupApiKeyLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'DeepSeek API Key'**
+  String get deepSeekSetupApiKeyLabel;
+
+  /// No description provided for @deepSeekSetupShowKey.
+  ///
+  /// In en, this message translates to:
+  /// **'Show key'**
+  String get deepSeekSetupShowKey;
+
+  /// No description provided for @deepSeekSetupHideKey.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide key'**
+  String get deepSeekSetupHideKey;
+
+  /// No description provided for @deepSeekSetupOpenKeyPage.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the DeepSeek API key page'**
+  String get deepSeekSetupOpenKeyPage;
+
+  /// No description provided for @deepSeekSetupLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up later'**
+  String get deepSeekSetupLater;
+
+  /// No description provided for @deepSeekSetupSaveAndStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Save and start'**
+  String get deepSeekSetupSaveAndStart;
 }
 
 class _AppLocalizationsDelegate

@@ -545,8 +545,7 @@ class HomePageController extends ChangeNotifier {
     final start = (selection.start >= 0 && selection.start <= text.length)
         ? selection.start
         : text.length;
-    final end =
-        (selection.end >= start && selection.end <= text.length)
+    final end = (selection.end >= start && selection.end <= text.length)
         ? selection.end
         : start;
     final separator = text.isEmpty || start == 0 || text[start - 1] == '\n'

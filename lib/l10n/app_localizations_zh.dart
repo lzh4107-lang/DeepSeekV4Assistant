@@ -3596,7 +3596,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aboutPageEasterEggButton => '好的';
 
   @override
-  String get aboutPageAppName => 'Kelivo';
+  String get aboutPageAppName => 'DeepSeek V4 助手';
 
   @override
   String get aboutPageAppDescription => '开源AI 助手';
@@ -4264,7 +4264,7 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get settingsShare => 'Kelivo - 开源AI助手';
+  String get settingsShare => 'DeepSeek V4 助手 - 开源 AI 客户端';
 
   @override
   String get searchProviderBingLocalDescription =>
@@ -5320,6 +5320,90 @@ class AppLocalizationsZh extends AppLocalizations {
   String debugPageManyMessagesSeedText(String role, int index) {
     return '$role 消息 #$index：快速随机调试样例，用于测试列表渲染、滚动稳定性、消息分组和会话历史性能。';
   }
+
+  @override
+  String get douyinSearchTitle => '抖音搜索';
+
+  @override
+  String get douyinWindowsOnly => '抖音搜索目前仅支持 Windows 桌面版。';
+
+  @override
+  String douyinWebViewInitFailed(String error) {
+    return 'WebView2 初始化失败：$error';
+  }
+
+  @override
+  String get douyinSearchEmptyWarning => '请输入要搜索的内容';
+
+  @override
+  String get douyinLinkCopied => '链接已复制';
+
+  @override
+  String get douyinBackTooltip => '后退';
+
+  @override
+  String get douyinForwardTooltip => '前进';
+
+  @override
+  String get douyinRefreshTooltip => '刷新';
+
+  @override
+  String get douyinCopyLinkTooltip => '复制当前链接';
+
+  @override
+  String get douyinOpenBrowserTooltip => '在浏览器中打开';
+
+  @override
+  String get douyinAddToChat => '加入对话';
+
+  @override
+  String get douyinSearchHint => '搜索抖音视频、创作者或话题';
+
+  @override
+  String get douyinSearchTooltip => '搜索';
+
+  @override
+  String get douyinRetry => '重试';
+
+  @override
+  String get douyinConversationIntro => '请结合当前抖音搜索结果继续对话。';
+
+  @override
+  String get douyinConversationQueryLabel => '搜索词：';
+
+  @override
+  String get douyinConversationCurrentPageLabel => '当前页面：';
+
+  @override
+  String get douyinConversationLinkLabel => '链接：';
+
+  @override
+  String get deepSeekSetupTitle => '连接 DeepSeek V4';
+
+  @override
+  String get deepSeekSetupDescription =>
+      '输入 API Key 后即可开始对话。默认使用速度更快的 V4 Flash，也可随时切换到 V4 Pro。';
+
+  @override
+  String get deepSeekSetupInvalidKey => '请输入有效的 DeepSeek API Key';
+
+  @override
+  String get deepSeekSetupApiKeyLabel => 'DeepSeek API Key';
+
+  @override
+  String get deepSeekSetupShowKey => '显示密钥';
+
+  @override
+  String get deepSeekSetupHideKey => '隐藏密钥';
+
+  @override
+  String get deepSeekSetupOpenKeyPage => '打开 DeepSeek API Key 页面';
+
+  @override
+  String get deepSeekSetupLater => '稍后设置';
+
+  @override
+  String get deepSeekSetupSaveAndStart => '保存并开始';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hans`).
@@ -8914,7 +8998,7 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get aboutPageEasterEggButton => '好的';
 
   @override
-  String get aboutPageAppName => 'Kelivo';
+  String get aboutPageAppName => 'DeepSeek V4 助手';
 
   @override
   String get aboutPageAppDescription => '开源 AI 助手';
@@ -9582,7 +9666,7 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   }
 
   @override
-  String get settingsShare => 'Kelivo - 开源AI助手';
+  String get settingsShare => 'DeepSeek V4 助手 - 开源 AI 客户端';
 
   @override
   String get searchProviderBingLocalDescription =>
@@ -10638,6 +10722,90 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String debugPageManyMessagesSeedText(String role, int index) {
     return '$role 消息 #$index：快速随机调试样例，用于测试列表渲染、滚动稳定性、消息分组和会话历史性能。';
   }
+
+  @override
+  String get douyinSearchTitle => '抖音搜索';
+
+  @override
+  String get douyinWindowsOnly => '抖音搜索目前仅支持 Windows 桌面版。';
+
+  @override
+  String douyinWebViewInitFailed(String error) {
+    return 'WebView2 初始化失败：$error';
+  }
+
+  @override
+  String get douyinSearchEmptyWarning => '请输入要搜索的内容';
+
+  @override
+  String get douyinLinkCopied => '链接已复制';
+
+  @override
+  String get douyinBackTooltip => '后退';
+
+  @override
+  String get douyinForwardTooltip => '前进';
+
+  @override
+  String get douyinRefreshTooltip => '刷新';
+
+  @override
+  String get douyinCopyLinkTooltip => '复制当前链接';
+
+  @override
+  String get douyinOpenBrowserTooltip => '在浏览器中打开';
+
+  @override
+  String get douyinAddToChat => '加入对话';
+
+  @override
+  String get douyinSearchHint => '搜索抖音视频、创作者或话题';
+
+  @override
+  String get douyinSearchTooltip => '搜索';
+
+  @override
+  String get douyinRetry => '重试';
+
+  @override
+  String get douyinConversationIntro => '请结合当前抖音搜索结果继续对话。';
+
+  @override
+  String get douyinConversationQueryLabel => '搜索词：';
+
+  @override
+  String get douyinConversationCurrentPageLabel => '当前页面：';
+
+  @override
+  String get douyinConversationLinkLabel => '链接：';
+
+  @override
+  String get deepSeekSetupTitle => '连接 DeepSeek V4';
+
+  @override
+  String get deepSeekSetupDescription =>
+      '输入 API Key 后即可开始对话。默认使用速度更快的 V4 Flash，也可随时切换到 V4 Pro。';
+
+  @override
+  String get deepSeekSetupInvalidKey => '请输入有效的 DeepSeek API Key';
+
+  @override
+  String get deepSeekSetupApiKeyLabel => 'DeepSeek API Key';
+
+  @override
+  String get deepSeekSetupShowKey => '显示密钥';
+
+  @override
+  String get deepSeekSetupHideKey => '隐藏密钥';
+
+  @override
+  String get deepSeekSetupOpenKeyPage => '打开 DeepSeek API Key 页面';
+
+  @override
+  String get deepSeekSetupLater => '稍后设置';
+
+  @override
+  String get deepSeekSetupSaveAndStart => '保存并开始';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -14230,7 +14398,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get aboutPageEasterEggButton => '好的';
 
   @override
-  String get aboutPageAppName => 'Kelivo';
+  String get aboutPageAppName => 'DeepSeek V4 助手';
 
   @override
   String get aboutPageAppDescription => '開源 AI 助理';
@@ -14898,7 +15066,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   }
 
   @override
-  String get settingsShare => 'Kelivo - 開源AI助理';
+  String get settingsShare => 'DeepSeek V4 助手 - 開源 AI 用戶端';
 
   @override
   String get searchProviderBingLocalDescription =>
@@ -15956,4 +16124,88 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String debugPageManyMessagesSeedText(String role, int index) {
     return '$role 訊息 #$index：快速隨機調試樣例，用於測試列表渲染、捲動穩定性、訊息分組和會話歷史效能。';
   }
+
+  @override
+  String get douyinSearchTitle => '抖音搜尋';
+
+  @override
+  String get douyinWindowsOnly => '抖音搜尋目前僅支援 Windows 桌面版。';
+
+  @override
+  String douyinWebViewInitFailed(String error) {
+    return 'WebView2 初始化失敗：$error';
+  }
+
+  @override
+  String get douyinSearchEmptyWarning => '請輸入要搜尋的內容';
+
+  @override
+  String get douyinLinkCopied => '連結已複製';
+
+  @override
+  String get douyinBackTooltip => '上一頁';
+
+  @override
+  String get douyinForwardTooltip => '下一頁';
+
+  @override
+  String get douyinRefreshTooltip => '重新整理';
+
+  @override
+  String get douyinCopyLinkTooltip => '複製目前連結';
+
+  @override
+  String get douyinOpenBrowserTooltip => '在瀏覽器中開啟';
+
+  @override
+  String get douyinAddToChat => '加入對話';
+
+  @override
+  String get douyinSearchHint => '搜尋抖音影片、創作者或話題';
+
+  @override
+  String get douyinSearchTooltip => '搜尋';
+
+  @override
+  String get douyinRetry => '重試';
+
+  @override
+  String get douyinConversationIntro => '請結合目前抖音搜尋結果繼續對話。';
+
+  @override
+  String get douyinConversationQueryLabel => '搜尋詞：';
+
+  @override
+  String get douyinConversationCurrentPageLabel => '目前頁面：';
+
+  @override
+  String get douyinConversationLinkLabel => '連結：';
+
+  @override
+  String get deepSeekSetupTitle => '連接 DeepSeek V4';
+
+  @override
+  String get deepSeekSetupDescription =>
+      '輸入 API Key 後即可開始對話。預設使用速度更快的 V4 Flash，也可隨時切換到 V4 Pro。';
+
+  @override
+  String get deepSeekSetupInvalidKey => '請輸入有效的 DeepSeek API Key';
+
+  @override
+  String get deepSeekSetupApiKeyLabel => 'DeepSeek API Key';
+
+  @override
+  String get deepSeekSetupShowKey => '顯示密鑰';
+
+  @override
+  String get deepSeekSetupHideKey => '隱藏密鑰';
+
+  @override
+  String get deepSeekSetupOpenKeyPage => '開啟 DeepSeek API Key 頁面';
+
+  @override
+  String get deepSeekSetupLater => '稍後設定';
+
+  @override
+  String get deepSeekSetupSaveAndStart => '儲存並開始';
 }

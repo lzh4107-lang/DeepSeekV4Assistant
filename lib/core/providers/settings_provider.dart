@@ -1261,10 +1261,7 @@ class SettingsProvider extends ChangeNotifier {
       if (deepSeek != null && deepSeek.enabled) {
         _currentModelProvider = 'DeepSeek';
         _currentModelId = 'deepseek-v4-flash';
-        await prefs.setString(
-          _selectedModelKey,
-          'DeepSeek::deepseek-v4-flash',
-        );
+        await prefs.setString(_selectedModelKey, 'DeepSeek::deepseek-v4-flash');
       }
     }
 

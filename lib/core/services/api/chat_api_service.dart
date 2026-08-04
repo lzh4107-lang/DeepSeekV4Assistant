@@ -13,7 +13,6 @@ import '../../utils/openai_model_compat.dart';
 import '../network/dio_http_client.dart';
 import 'google_service_account_auth.dart';
 import '../../services/api_key_manager.dart';
-import 'package:Kelivo/secrets/fallback.dart';
 import '../../../utils/markdown_media_sanitizer.dart';
 import '../../../utils/unicode_sanitizer.dart';
 import 'builtin_tools.dart';
@@ -91,19 +90,7 @@ class ChatApiService {
   }
 
   static String _apiKeyForRequest(ProviderConfig cfg, String modelId) {
-    final orig = _effectiveApiKey(cfg).trim();
-    if (orig.isNotEmpty) return orig;
-    if ((cfg.id) == 'SiliconFlow') {
-      final host = Uri.tryParse(cfg.baseUrl)?.host.toLowerCase() ?? '';
-      if (!host.contains('siliconflow')) return orig;
-      final m = _apiModelId(cfg, modelId).toLowerCase();
-      final allowed = m == 'thudm/glm-4-9b-0414' || m == 'qwen/qwen3-8b';
-      final fallback = siliconflowFallbackKey.trim();
-      if (allowed && fallback.isNotEmpty) {
-        return fallback;
-      }
-    }
-    return orig;
+    return _effectiveApiKey(cfg).trim();
   }
 
   static String _effectiveApiKey(ProviderConfig cfg) {

@@ -47,9 +47,7 @@ class _DesktopDouyinPageState extends State<DesktopDouyinPage> {
 
   Future<void> _initializeWebView() async {
     if (!Platform.isWindows) {
-      setState(
-        () => _error = AppLocalizations.of(context)!.douyinWindowsOnly,
-      );
+      setState(() => _error = AppLocalizations.of(context)!.douyinWindowsOnly);
       return;
     }
 
@@ -87,9 +85,9 @@ class _DesktopDouyinPageState extends State<DesktopDouyinPage> {
     } catch (error) {
       if (!mounted) return;
       setState(() {
-        _error = AppLocalizations.of(context)!.douyinWebViewInitFailed(
-          error.toString(),
-        );
+        _error = AppLocalizations.of(
+          context,
+        )!.douyinWebViewInitFailed(error.toString());
         _webviewController = null;
       });
     }

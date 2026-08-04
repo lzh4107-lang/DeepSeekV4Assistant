@@ -3731,7 +3731,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aboutPageEasterEggButton => 'Nice!';
 
   @override
-  String get aboutPageAppName => 'Kelivo';
+  String get aboutPageAppName => 'DeepSeek V4 Assistant';
 
   @override
   String get aboutPageAppDescription => 'Open-source AI Assistant';
@@ -4443,7 +4443,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get settingsShare => 'Kelivo - Open Source AI Assistant';
+  String get settingsShare => 'DeepSeek V4 Assistant - Open Source AI Client';
 
   @override
   String get searchProviderBingLocalDescription =>
@@ -5537,4 +5537,90 @@ class AppLocalizationsEn extends AppLocalizations {
   String debugPageManyMessagesSeedText(String role, int index) {
     return '$role message #$index: quick random debug sample for testing list rendering, scrolling stability, message grouping, and conversation history performance.';
   }
+
+  @override
+  String get douyinSearchTitle => 'Douyin Search';
+
+  @override
+  String get douyinWindowsOnly =>
+      'Douyin search is currently available only in the Windows desktop app.';
+
+  @override
+  String douyinWebViewInitFailed(String error) {
+    return 'WebView2 initialization failed: $error';
+  }
+
+  @override
+  String get douyinSearchEmptyWarning => 'Enter something to search for';
+
+  @override
+  String get douyinLinkCopied => 'Link copied';
+
+  @override
+  String get douyinBackTooltip => 'Back';
+
+  @override
+  String get douyinForwardTooltip => 'Forward';
+
+  @override
+  String get douyinRefreshTooltip => 'Refresh';
+
+  @override
+  String get douyinCopyLinkTooltip => 'Copy current link';
+
+  @override
+  String get douyinOpenBrowserTooltip => 'Open in browser';
+
+  @override
+  String get douyinAddToChat => 'Add to chat';
+
+  @override
+  String get douyinSearchHint => 'Search Douyin videos, creators, or topics';
+
+  @override
+  String get douyinSearchTooltip => 'Search';
+
+  @override
+  String get douyinRetry => 'Retry';
+
+  @override
+  String get douyinConversationIntro =>
+      'Continue this conversation using the current Douyin search result.';
+
+  @override
+  String get douyinConversationQueryLabel => 'Search query:';
+
+  @override
+  String get douyinConversationCurrentPageLabel => 'Current page:';
+
+  @override
+  String get douyinConversationLinkLabel => 'Link:';
+
+  @override
+  String get deepSeekSetupTitle => 'Connect DeepSeek V4';
+
+  @override
+  String get deepSeekSetupDescription =>
+      'Enter an API key to start chatting. V4 Flash is selected for speed by default, and you can switch to V4 Pro at any time.';
+
+  @override
+  String get deepSeekSetupInvalidKey => 'Enter a valid DeepSeek API key';
+
+  @override
+  String get deepSeekSetupApiKeyLabel => 'DeepSeek API Key';
+
+  @override
+  String get deepSeekSetupShowKey => 'Show key';
+
+  @override
+  String get deepSeekSetupHideKey => 'Hide key';
+
+  @override
+  String get deepSeekSetupOpenKeyPage => 'Open the DeepSeek API key page';
+
+  @override
+  String get deepSeekSetupLater => 'Set up later';
+
+  @override
+  String get deepSeekSetupSaveAndStart => 'Save and start';
 }
