@@ -43,11 +43,19 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p release
-          cp artifacts/android/DeepSeekV4Assistant-*-Android.apk release/
-          cp artifacts/windows/DeepSeekV4Assistant-*-Windows-Setup.exe release/
-          cp artifacts/windows/DeepSeekV4Assistant-*-Windows-Portable.zip release/
-          cp artifacts/windows/DeepSeekV4Assistant-*-Source.zip release/
-          cp artifacts/windows/LICENSE artifacts/windows/NOTICE.md release/
+          find artifacts -type f -printf '%P\n' | sort
+          find artifacts -type f \( \
+            -name 'DeepSeekV4Assistant-*-Android.apk' -o \
+            -name 'DeepSeekV4Assistant-*-Windows-Setup.exe' -o \
+            -name 'DeepSeekV4Assistant-*-Windows-Portable.zip' -o \
+            -name 'DeepSeekV4Assistant-*-Source.zip' \
+          \) -exec cp -f '{}' release/ \;
+          find artifacts/windows -type f \( -name LICENSE -o -name NOTICE.md \) \
+            -exec cp -f '{}' release/ \;
+          test "$(find release -maxdepth 1 -type f -name '*.apk' | wc -l)" -eq 1
+          test "$(find release -maxdepth 1 -type f -name '*.exe' | wc -l)" -eq 1
+          test "$(find release -maxdepth 1 -type f -name '*-Windows-Portable.zip' | wc -l)" -eq 1
+          test "$(find release -maxdepth 1 -type f -name '*-Source.zip' | wc -l)" -eq 1
           cd release
           sha256sum *.apk *.exe *.zip > SHA256SUMS.txt
 
