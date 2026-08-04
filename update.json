@@ -1,0 +1,14 @@
+{
+  "app": "DeepSeek V4 Assistant",
+  "latest": {
+    "version": "0.1.0",
+    "build": 1,
+    "releasedAt": "2026-08-05T00:00:00+08:00",
+    "notes": "首个稳定版本：DeepSeek V4 对话、文件上传、联网搜索，以及 Windows 抖音搜索。",
+    "mandatory": false,
+    "downloads": {
+      "android": "https://github.com/lzh4107-lang/DeepSeekV4Assistant/releases/download/v0.1.0/DeepSeekV4Assistant-0.1.0-Android.apk",
+      "windows": "https://github.com/lzh4107-lang/DeepSeekV4Assistant/releases/download/v0.1.0/DeepSeekV4Assistant-0.1.0-Windows-Setup.exe"
+    }
+  }
+}

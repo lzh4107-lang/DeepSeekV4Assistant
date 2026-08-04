@@ -1,0 +1,223 @@
+name: Build Windows and Android
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  FLUTTER_VERSION: 3.44.1
+  APP_VERSION: 0.1.0
+
+jobs:
+  quality:
+    name: Analyze and test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Generate localization files
+        run: flutter gen-l10n
+
+      - name: Generate application icons and splash screen
+        run: |
+          dart run flutter_launcher_icons
+          dart run flutter_native_splash:create
+
+      - name: Format Dart sources
+        run: dart format lib test
+
+      - name: Save generated source patch
+        run: git diff --binary > quality.patch
+
+      - name: Upload generated source patch
+        uses: actions/upload-artifact@v4
+        with:
+          name: Quality-Patch
+          path: |
+            quality.patch
+            pubspec.lock
+          if-no-files-found: error
+
+      - name: Analyze
+        run: flutter analyze --no-fatal-infos --no-fatal-warnings
+
+      - name: Test
+        run: flutter test --reporter expanded
+
+  android:
+    name: Build Android APK
+    needs: quality
+    runs-on: ubuntu-latest
+    env:
+      KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+      KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+      KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+      KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Generate localization files
+        run: flutter gen-l10n
+
+      - name: Generate application icons and splash screen
+        run: |
+          dart run flutter_launcher_icons
+          dart run flutter_native_splash:create
+
+      - name: Prepare release signing
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "$KEYSTORE_PASSWORD" || -z "$KEY_ALIAS" || -z "$KEY_PASSWORD" ]]; then
+            echo "Android signing secrets are missing" >&2
+            exit 1
+          fi
+          if [[ -n "$KEYSTORE_BASE64" ]]; then
+            printf '%s' "$KEYSTORE_BASE64" | base64 --decode > android/app/deepseek-release.jks
+          else
+            keytool -genkeypair -noprompt \
+              -keystore android/app/deepseek-release.jks \
+              -storepass "$KEYSTORE_PASSWORD" \
+              -keypass "$KEY_PASSWORD" \
+              -alias "$KEY_ALIAS" \
+              -keyalg RSA -keysize 4096 -validity 10000 \
+              -dname "CN=DeepSeek V4 Assistant, OU=Desktop and Android, O=LZH, C=CN"
+          fi
+          cat > android/key.properties <<EOF
+          storePassword=$KEYSTORE_PASSWORD
+          keyPassword=$KEY_PASSWORD
+          keyAlias=$KEY_ALIAS
+          storeFile=deepseek-release.jks
+          EOF
+
+      - name: Build universal release APK
+        run: flutter build apk --release
+
+      - name: Collect Android artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          cp build/app/outputs/flutter-apk/app-release.apk \
+            "dist/DeepSeekV4Assistant-${APP_VERSION}-Android.apk"
+          cp LICENSE NOTICE.md dist/
+          git archive --format=zip --output="dist/DeepSeekV4Assistant-${APP_VERSION}-Source.zip" HEAD
+          cd dist
+          sha256sum *.apk *.zip > SHA256SUMS.txt
+
+      - name: Upload Android package
+        uses: actions/upload-artifact@v4
+        with:
+          name: Android-APK
+          path: dist/
+          if-no-files-found: error
+
+      - name: Upload first-run signing key
+        if: ${{ env.KEYSTORE_BASE64 == '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: Android-Signing-Key
+          path: android/app/deepseek-release.jks
+          if-no-files-found: error
+          retention-days: 1
+
+  windows:
+    name: Build Windows installer
+    needs: quality
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Generate localization files
+        run: flutter gen-l10n
+
+      - name: Generate application icons
+        run: dart run flutter_launcher_icons
+
+      - name: Build Windows release
+        run: flutter build windows --release
+
+      - name: Install Inno Setup
+        run: choco install innosetup --yes --no-progress
+
+      - name: Download Microsoft WebView2 bootstrapper
+        shell: pwsh
+        run: |
+          Invoke-WebRequest `
+            -Uri 'https://go.microsoft.com/fwlink/p/?LinkId=2124703' `
+            -OutFile 'installer/MicrosoftEdgeWebview2Setup.exe'
+
+      - name: Build installer and portable package
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path dist | Out-Null
+          Compress-Archive `
+            -Path 'build/windows/x64/runner/Release/*' `
+            -DestinationPath "dist/DeepSeekV4Assistant-$env:APP_VERSION-Windows-Portable.zip"
+          & 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe' `
+            "/DAppVersion=$env:APP_VERSION" 'installer/windows.iss'
+          git archive --format=zip `
+            --output="dist/DeepSeekV4Assistant-$env:APP_VERSION-Source.zip" HEAD
+          Copy-Item LICENSE,NOTICE.md -Destination dist
+          $lines = Get-ChildItem dist -File |
+            Where-Object { $_.Name -notlike 'SHA256SUMS*' } |
+            Sort-Object Name |
+            ForEach-Object {
+              $hash = (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+              "$hash  $($_.Name)"
+            }
+          $lines | Out-File -FilePath dist/SHA256SUMS.txt -Encoding ascii
+
+      - name: Upload Windows packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows-Packages
+          path: dist/
+          if-no-files-found: error
